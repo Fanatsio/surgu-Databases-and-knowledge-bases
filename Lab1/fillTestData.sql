@@ -1,33 +1,69 @@
--- Создание или замена функции fill_data
-CREATE OR REPLACE FUNCTION fill_data() RETURNS void AS $$
-DECLARE
-    i INTEGER := 0;
-BEGIN
-    WHILE i < 1000 LOOP
-        -- Исправленные операторы INSERT для таблицы legal_person
-        INSERT INTO legal_person (inn, name, phone, email, delivery_address, representative_forename) 
-        VALUES ('inn' || i, 'legal_customer_name' || i, 'phone_number' || i, 'email' || i, 'delivery_address' || i, 'representative_name' || i);
+INSERT INTO natural_person (passport, forename, phone, email, delivery_address)
+VALUES
+('4012 345678', 'Ivan Ivanov', '+7 910 123 4567', 'ivanov@example.com', 'ул. Ленина, д. 1, кв. 1, Москва'),
+('4012 987654', 'Petr Petrov', '+7 910 765 4321', 'petrov@example.com', 'ул. Тверская, д. 5, кв. 12, Москва'),
+('4012 567890', 'Anna Sidorova', '+7 910 678 9012', 'sidorova@example.com', 'ул. Арбат, д. 3, кв. 45, Санкт-Петербург'),
+('4012 234567', 'Sergey Smirnov', '+7 910 234 5678', 'smirnov@example.com', 'ул. Пушкина, д. 7, кв. 9, Санкт-Петербург'),
+('4012 876543', 'Elena Ivanova', '+7 910 876 5432', 'ivanova@example.com', 'ул. Невский проспект, д. 10, кв. 30, Санкт-Петербург'),
+('4012 678901', 'Nikolay Kuznetsov', '+7 910 789 0123', 'kuznetsov@example.com', 'ул. Гоголя, д. 20, кв. 15, Новосибирск'),
+('4012 123456', 'Olga Smirnova', '+7 910 123 4568', 'smirnova@example.com', 'ул. Чехова, д. 25, кв. 50, Екатеринбург'),
+('4012 654321', 'Dmitry Popov', '+7 910 654 3210', 'popov@example.com', 'ул. Лермонтова, д. 30, кв. 60, Казань');
 
-        -- Исправленные операторы INSERT для таблицы natural_person
-        INSERT INTO natural_person (passport, forename, phone, email, delivery_address) 
-        VALUES ('passport_details' || i, 'natural_customer_name' || i, 'phone_number' || i, 'email' || i, 'delivery_address' || i);
+INSERT INTO legal_person (inn, name, phone, email, delivery_address, representative_forename)
+VALUES
+('7701234567', 'ООО "Ромашка"', '+7 495 123 4567', 'info@romashka.ru', 'ул. Ленина, д. 1, оф. 101, Москва', 'Ivan Ivanov'),
+('7707654321', 'ООО "Василек"', '+7 495 765 4321', 'info@vasilek.ru', 'ул. Тверская, д. 5, оф. 202, Москва', 'Petr Petrov'),
+('7801234567', 'ООО "Роза"', '+7 812 123 4567', 'info@roza.ru', 'ул. Невский проспект, д. 10, оф. 404, Санкт-Петербург', 'Anna Sidorova'),
+('7807654321', 'ООО "Лаванда"', '+7 812 765 4321', 'info@lavanda.ru', 'ул. Садовая, д. 15, оф. 505, Санкт-Петербург', 'Sergey Smirnov');
 
-        -- Исправленные операторы INSERT для таблицы provider
-        INSERT INTO provider (inn, name, address) 
-        VALUES ('provider_inn' || i, 'provider_name' || i, 'provider_address' || i);
+INSERT INTO provider (inn, name, address)
+VALUES
+('7701111111', 'Поставщик 1', 'ул. Профсоюзная, д. 1, оф. 1, Москва'),
+('7702222222', 'Поставщик 2', 'ул. Юности, д. 2, оф. 2, Москва'),
+('7801111111', 'Поставщик 3', 'ул. Московский проспект, д. 3, оф. 3, Санкт-Петербург'),
+('7802222222', 'Поставщик 4', 'ул. Литейный, д. 4, оф. 4, Санкт-Петербург');
 
-        -- Исправленные операторы INSERT для таблицы product
-        INSERT INTO product (place, name, receipt_date, article, quantity, price, weight) 
-        VALUES (i, 'product_name' || i, CURRENT_DATE, 'article' || i, i, i * 10.5, i * 0.1);
+INSERT INTO product (place, provider_id, provider_name, name, receipt_date, article, quantity, price, weight)
+VALUES
+(1, 1, 'Поставщик 1', 'Продукт 1', '2024-08-01', 'A001', 100, 250.50, 1.00),
+(2, 1, 'Поставщик 1', 'Продукт 2', '2024-08-02', 'A002', 200, 350.75, 1.50),
+(3, 1, 'Поставщик 1', 'Продукт 3', '2024-08-03', 'A003', 150, 150.00, 0.75),
+(4, 2, 'Поставщик 2', 'Продукт 4', '2024-08-04', 'A004', 250, 450.90, 2.00),
+(5, 2, 'Поставщик 2', 'Продукт 5', '2024-08-05', 'A005', 120, 550.30, 2.50),
+(6, 2, 'Поставщик 2', 'Продукт 6', '2024-08-06', 'A006', 180, 650.40, 3.00),
+(7, 3, 'Поставщик 3', 'Продукт 7', '2024-08-07', 'A007', 220, 750.60, 3.50),
+(8, 3, 'Поставщик 3', 'Продукт 8', '2024-08-08', 'A008', 140, 850.80, 4.00),
+(9, 3, 'Поставщик 3', 'Продукт 9', '2024-08-09', 'A009', 160, 950.10, 4.50),
+(10, 4, 'Поставщик 4', 'Продукт 10', '2024-08-10', 'A010', 300, 1050.25, 5.00),
+(11, 4, 'Поставщик 4', 'Продукт 11', '2024-08-11', 'A011', 130, 1150.50, 5.50),
+(12, 4, 'Поставщик 4', 'Продукт 12', '2024-08-12', 'A012', 170, 1250.75, 6.00);
 
-        -- Исправленные операторы INSERT для таблицы waybill
-        INSERT INTO waybill (article_product, product_quantity) 
-        VALUES ('article' || i, i);
+INSERT INTO orders (order_number, weight, registration_date, cost, customer_id, customer_category)
+VALUES
+(1001, 1.00, '2024-08-11', 250.50, 1, 'Физ. лицо'),
+(1002, 2.00, '2024-08-12', 350.75, 1, 'Физ. лицо'),
+(1003, 1.50, '2024-08-13', 150.00, 2, 'Физ. лицо'),
+(1004, 2.50, '2024-08-14', 450.90, 2, 'Физ. лицо'),
+(1005, 3.00, '2024-08-15', 550.30, 3, 'Физ. лицо'),
+(1006, 1.75, '2024-08-16', 650.40, 4, 'Физ. лицо'),
+(1007, 2.25, '2024-08-17', 750.60, 4, 'Физ. лицо'),
+(1008, 3.50, '2024-08-18', 850.80, 3, 'Физ. лицо'),
+(1009, 4.00, '2024-08-19', 950.10, 1, 'Физ. лицо'),
+(1010, 2.50, '2024-08-20', 1050.25, 2, 'Физ. лицо'),
+(1011, 3.75, '2024-08-21', 1150.50, 3, 'Физ. лицо'),
+(1012, 4.25, '2024-08-22', 1250.75, 4, 'Физ. лицо');
 
-        i := i + 1;
-    END LOOP;
-END;
-$$ LANGUAGE plpgsql;
-
--- Вызов функции fill_data
-SELECT fill_data();
+INSERT INTO waybill (article_product, product_quantity, orders_number, doc_number)
+VALUES
+('A001', 10, 1001, 501),
+('A002', 20, 1002, 502),
+('A003', 15, 1003, 503),
+('A004', 25, 1004, 504),
+('A005', 30, 1005, 505),
+('A006', 18, 1006, 506),
+('A002', 12, 1007, 507),
+('A001', 8, 1008, 508),
+('A004', 16, 1009, 509),
+('A010', 14, 1010, 510),
+('A011', 20, 1011, 511),
+('A012', 22, 1012, 512);

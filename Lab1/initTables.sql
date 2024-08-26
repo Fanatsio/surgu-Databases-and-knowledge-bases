@@ -33,7 +33,6 @@ CREATE TABLE product (
     place INTEGER UNIQUE,
     provider_id INTEGER REFERENCES provider(id),
     provider_name VARCHAR(255),
-    CONSTRAINT fk_provider FOREIGN KEY (provider_id) REFERENCES provider(id) [ON UPDATE {CASCADE}],
     name VARCHAR(255),
     receipt_date DATE,
     article VARCHAR(255) UNIQUE,
@@ -41,23 +40,6 @@ CREATE TABLE product (
     price DECIMAL(10, 2),
     weight DECIMAL(5, 2)
 );
-
--- Создание функции update_provider_name
-CREATE OR REPLACE FUNCTION update_provider_name()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.provider_name := (
-        SELECT name FROM provider WHERE provider.id = NEW.provider_id
-    );
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- Создание триггера update_provider_name_trigger
-CREATE TRIGGER update_provider_name_trigger
-BEFORE INSERT OR UPDATE ON product
-FOR EACH ROW
-EXECUTE FUNCTION update_provider_name();
 
 -- Создание таблицы orders
 CREATE TABLE orders (
@@ -81,5 +63,6 @@ CREATE TABLE waybill (
     id SERIAL PRIMARY KEY,
     article_product VARCHAR(255) REFERENCES product(article),
     product_quantity INTEGER,
-	orders_number INTEGER REFERENCES orders(order_number)
+	orders_number INTEGER REFERENCES orders(order_number),
+	doc_number INTEGER
 );

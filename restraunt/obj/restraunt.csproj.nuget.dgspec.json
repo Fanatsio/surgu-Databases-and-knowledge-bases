@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\Desktop\\SurGU\\3 курс\\БД курсовая\\restraunt\\restraunt.csproj": {}
+    "D:\\GitHub\\surgu-Databases-and-knowledge-bases\\restraunt\\restraunt.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\Desktop\\SurGU\\3 курс\\БД курсовая\\restraunt\\restraunt.csproj": {
+    "D:\\GitHub\\surgu-Databases-and-knowledge-bases\\restraunt\\restraunt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\SurGU\\3 курс\\БД курсовая\\restraunt\\restraunt.csproj",
+        "projectUniqueName": "D:\\GitHub\\surgu-Databases-and-knowledge-bases\\restraunt\\restraunt.csproj",
         "projectName": "restraunt",
-        "projectPath": "C:\\Users\\Lenovo\\Desktop\\SurGU\\3 курс\\БД курсовая\\restraunt\\restraunt.csproj",
-        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\Desktop\\SurGU\\3 курс\\БД курсовая\\restraunt\\obj\\",
+        "projectPath": "D:\\GitHub\\surgu-Databases-and-knowledge-bases\\restraunt\\restraunt.csproj",
+        "packagesPath": "C:\\Users\\rechu\\.nuget\\packages\\",
+        "outputPath": "D:\\GitHub\\surgu-Databases-and-knowledge-bases\\restraunt\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages"
+          "F:\\Tools\\Visual Studio\\SDK\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.1.config",
+          "C:\\Users\\rechu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,9 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Serafim": {},
-          "C:\\Users\\Lenovo\\Downloads": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -41,7 +38,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -99,7 +102,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

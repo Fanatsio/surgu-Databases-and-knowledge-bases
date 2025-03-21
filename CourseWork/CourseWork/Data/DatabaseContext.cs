@@ -875,5 +875,40 @@ namespace CourseWork.Data
             }
         }
         #endregion
+
+        // Новый метод для авторизации
+        public async Task<User> AuthenticateUserAsync(string username, string password)
+        {
+            try
+            {
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    await conn.OpenAsync();
+                    string sql = "SELECT * FROM users WHERE username = @username AND password = @password";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("username", username);
+                        cmd.Parameters.AddWithValue("password", password);
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return new User
+                                {
+                                    UserId = reader.GetInt32(0),
+                                    Username = reader.GetString(1),
+                                    Password = reader.GetString(2)
+                                };
+                            }
+                        }
+                    }
+                }
+                return null; // Пользователь не найден
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка при авторизации: " + ex.Message);
+            }
+        }
     }
 }

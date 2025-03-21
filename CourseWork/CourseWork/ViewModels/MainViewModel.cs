@@ -14,6 +14,7 @@ namespace CourseWork.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private readonly DatabaseContext _dbContext;
+        private User _currentUser; // Добавляем свойство для текущего пользователя
 
         #region Collections
         public ObservableCollection<NaturalPerson> NaturalPersons { get; set; }
@@ -82,6 +83,14 @@ namespace CourseWork.ViewModels
         {
             get => _selectedWaybill;
             set { _selectedWaybill = value; OnPropertyChanged(nameof(SelectedWaybill)); }
+        }
+        #endregion
+
+        #region Properties
+        public User CurrentUser
+        {
+            get => _currentUser;
+            set { _currentUser = value; OnPropertyChanged(nameof(CurrentUser)); }
         }
         #endregion
 
@@ -178,7 +187,13 @@ namespace CourseWork.ViewModels
             DeleteWaybillCommand = new RelayCommand(async () => await DeleteWaybillAsync(), () => SelectedWaybill != null);
             #endregion
 
-            // Инициальная загрузка данных
+            // Инициальная загрузка данных будет выполнена после установки CurrentUser
+        }
+
+        // Новый конструктор с передачей пользователя после авторизации
+        public void Initialize(User user)
+        {
+            CurrentUser = user;
             Task.Run(async () =>
             {
                 await LoadNaturalPersonsAsync();
@@ -195,50 +210,106 @@ namespace CourseWork.ViewModels
         #region Load Methods
         private async Task LoadNaturalPersonsAsync()
         {
-            NaturalPersons = await _dbContext.GetNaturalPersonsAsync();
-            OnPropertyChanged(nameof(NaturalPersons));
+            try
+            {
+                NaturalPersons = await _dbContext.GetNaturalPersonsAsync();
+                OnPropertyChanged(nameof(NaturalPersons));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки физических лиц: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task LoadLegalPersonsAsync()
         {
-            LegalPersons = await _dbContext.GetLegalPersonsAsync();
-            OnPropertyChanged(nameof(LegalPersons));
+            try
+            {
+                LegalPersons = await _dbContext.GetLegalPersonsAsync();
+                OnPropertyChanged(nameof(LegalPersons));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки юридических лиц: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task LoadProvidersAsync()
         {
-            Providers = await _dbContext.GetProvidersAsync();
-            OnPropertyChanged(nameof(Providers));
+            try
+            {
+                Providers = await _dbContext.GetProvidersAsync();
+                OnPropertyChanged(nameof(Providers));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки поставщиков: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task LoadMaterialsAsync()
         {
-            Materials = await _dbContext.GetMaterialsAsync();
-            OnPropertyChanged(nameof(Materials));
+            try
+            {
+                Materials = await _dbContext.GetMaterialsAsync();
+                OnPropertyChanged(nameof(Materials));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки материалов: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task LoadAccessoriesAsync()
         {
-            Accessories = await _dbContext.GetAccessoriesAsync();
-            OnPropertyChanged(nameof(Accessories));
+            try
+            {
+                Accessories = await _dbContext.GetAccessoriesAsync();
+                OnPropertyChanged(nameof(Accessories));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки фурнитуры: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task LoadFurnitureAsync()
         {
-            Furniture = await _dbContext.GetFurnitureAsync();
-            OnPropertyChanged(nameof(Furniture));
+            try
+            {
+                Furniture = await _dbContext.GetFurnitureAsync();
+                OnPropertyChanged(nameof(Furniture));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки мебели: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task LoadOrdersAsync()
         {
-            Orders = await _dbContext.GetOrdersAsync();
-            OnPropertyChanged(nameof(Orders));
+            try
+            {
+                Orders = await _dbContext.GetOrdersAsync();
+                OnPropertyChanged(nameof(Orders));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки заказов: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task LoadWaybillsAsync()
         {
-            Waybills = await _dbContext.GetWaybillsAsync();
-            OnPropertyChanged(nameof(Waybills));
+            try
+            {
+                Waybills = await _dbContext.GetWaybillsAsync();
+                OnPropertyChanged(nameof(Waybills));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки накладных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         #endregion
 
